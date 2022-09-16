@@ -4,7 +4,6 @@ import com.bookstore.model.entities.OrderEntity;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class OrderRestModel {
