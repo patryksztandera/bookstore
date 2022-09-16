@@ -6,6 +6,8 @@ import com.bookstore.model.repositories.BookRepository;
 import com.bookstore.model.responses.BookRestModel;
 import org.json.JSONObject;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +25,20 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Deprecated
     public List<BookRestModel> getAll() {
         return bookRepository.findAll()
                 .stream()
                 .map(BookRestModel::new)
                 .collect(Collectors.toList());
+    }
+
+    public PageImpl<BookRestModel> getMany(Pageable pageable) {
+        return new PageImpl<>(bookRepository
+                .findAll(pageable)
+                .stream()
+                .map(BookRestModel::new)
+                .collect(Collectors.toList()));
     }
 
     public BookRestModel getById(final Long id) {
