@@ -31,19 +31,26 @@ public class BookController {
         return ResponseEntity.ok(bookService.getById(id));
     }
 
-    @PostMapping(
+    @PostMapping( value="/add",
             consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<BookRestModel> addBook(@RequestBody final BookRestModel book) {
         return ResponseEntity.ok(bookService.add(book));
     }
 
-    @PatchMapping(
+    @PatchMapping( value="{id}",
             consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookRestModel> updateBook(@RequestBody final BookRestModel book) {
-        return ResponseEntity.ok(bookService.update(book));
+    public ResponseEntity<BookRestModel> updateBook(@PathVariable final Long id,
+                                                    @RequestBody final BookRestModel book) {
+        return ResponseEntity.ok(bookService.updateOne(id, book));
     }
 
-    @PostMapping( value="/multiple",
+    @PatchMapping(
+            consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookRestModel>> updateBooks(@RequestBody final List<BookRestModel> books) {
+        return ResponseEntity.ok(bookService.updateMany(books));
+    }
+
+    @PostMapping(
             consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BookRestModel>> addBooks(@RequestBody final List<BookRestModel> books) {
         return ResponseEntity.ok(bookService.addAll(books));

@@ -118,4 +118,24 @@ public class BookEntity {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }
