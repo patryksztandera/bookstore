@@ -3,6 +3,8 @@ package com.bookstore.contoller;
 import com.bookstore.model.responses.OrderRestModel;
 import com.bookstore.model.services.OrderService;
 import org.json.JSONObject;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderRestModel>> getAllOrders() {
-        final List<OrderRestModel> clients = orderService.getAll();
+    public ResponseEntity<PageImpl<OrderRestModel>> getAllOrders(Pageable pageable) {
+        final PageImpl<OrderRestModel> clients = orderService.getAll(pageable);
 
         return ResponseEntity.ok(clients);
     }

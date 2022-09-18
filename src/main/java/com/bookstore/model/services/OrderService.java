@@ -8,13 +8,16 @@ import com.bookstore.model.repositories.OrderRepository;
 import com.bookstore.model.responses.BookRestModel;
 import com.bookstore.model.responses.OrderRestModel;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -31,11 +34,20 @@ public class OrderService {
         this.clientRepository = clientRepository;
     }
 
+    @Deprecated
     public List<OrderRestModel> getAll() {
         return orderRepository.findAll()
                 .stream()
                 .map(OrderRestModel::new)
                 .collect(Collectors.toList());
+    }
+
+    public PageImpl<OrderRestModel> getAll(Pageable pageable) {
+        return new PageImpl<>(orderRepository
+                .findAll(pageable)
+                .stream()
+                .map(OrderRestModel::new)
+                .collect(Collectors.toList()));
     }
 
     public OrderRestModel getById(final Long id) {
