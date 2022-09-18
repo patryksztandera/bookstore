@@ -2,6 +2,8 @@ package com.bookstore.contoller;
 
 import com.bookstore.model.responses.ClientRestModel;
 import com.bookstore.model.services.ClientService;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,8 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientRestModel>> listAllClients() {
-        final List<ClientRestModel> clients = clientService.getAll();
+    public ResponseEntity<PageImpl<ClientRestModel>> listAllClients(Pageable pageable) {
+        final PageImpl<ClientRestModel> clients = clientService.getAll(pageable);
 
         return ResponseEntity.ok(clients);
     }
